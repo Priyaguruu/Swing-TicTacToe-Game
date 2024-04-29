@@ -64,13 +64,14 @@ class TicTacToeGUI extends JFrame {
         } while (board[row][col] != ' ');
         board[row][col] = 'O';
         buttons[row][col].setText("O"); 
-        currentPlayer = 'X';
         if (checkWin('O')) {
             JOptionPane.showMessageDialog(null, "AI wins!");
             resetBoard();
         } else if (checkDraw()) {
             JOptionPane.showMessageDialog(null, "Game is a draw!");
             resetBoard();
+        } else{
+            currentPlayer = 'X';
         }
     }
     
