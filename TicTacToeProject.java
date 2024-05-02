@@ -7,12 +7,15 @@ class TicTacToeGUI extends JFrame {
     private JButton[][] buttons;
     private char[][] board;
     private char currentPlayer;
+    private JPanel gamePanel;
   
     public TicTacToeGUI() {
-        setTitle("Tic Tac Toe");
+        setTitle("Tic Tac Toe - GP");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(3, 3));
-        setSize(500, 500);
+        setSize(400, 500);
+
+        gamePanel = new JPanel();
+        gamePanel.setLayout(new GridLayout(3, 3));
 
         buttons = new JButton[3][3];
         board = new char[3][3]; 
@@ -20,6 +23,8 @@ class TicTacToeGUI extends JFrame {
         currentPlayer = 'X';
 
         initializeBoard();
+        add(gamePanel, BorderLayout.CENTER);
+        addResetButtons();
     }
     
     private void initializeBoard() {
@@ -50,7 +55,7 @@ class TicTacToeGUI extends JFrame {
                         }
                     }
                 });
-                add(buttons[i][j]);
+                gamePanel.add(buttons[i][j]);
             }
         }
     }    
@@ -63,7 +68,7 @@ class TicTacToeGUI extends JFrame {
             col = r.nextInt(3);
         } while (board[row][col] != ' ');
         board[row][col] = 'O';
-        buttons[row][col].setText("O"); 
+        buttons[row][col].setText("O");
         if (checkWin('O')) {
             JOptionPane.showMessageDialog(null, "AI wins!");
             resetBoard();
@@ -112,6 +117,16 @@ class TicTacToeGUI extends JFrame {
                 buttons[i][j].setText("");
             }
         }
+    }
+
+    private void addResetButtons() {
+        JButton resetButton = new JButton("Reset");
+        resetButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                resetBoard();
+            }
+        });
+        add(resetButton, BorderLayout.SOUTH);
     }
 
     public static void main(String[] args) {
